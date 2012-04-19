@@ -10,6 +10,8 @@
 		0F459DBB0D4647D10058DF34 /* xattrfunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 0F459DB90D4647D10058DF34 /* xattrfunctions.c */; };
 		75C8355C153DFAB8009021F4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C83546153DE0F3009021F4 /* Cocoa.framework */; };
 		75C83562153DFB07009021F4 /* XATTR.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75C83561153DFB07009021F4 /* XATTR.plist */; };
+		75C8358E153E0068009021F4 /* xattr.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C83553153DE147009021F4 /* xattr.m */; };
+		75C83590153E0072009021F4 /* xattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 75C83552153DE147009021F4 /* xattr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DD76FAC0486AB0100D96B5E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.c */; settings = {ATTRIBUTES = (); }; };
 		8DD76FB00486AB0100D96B5E /* xattr.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6A0FF2C0290799A04C91782 /* xattr.1 */; };
 /* End PBXBuildFile section */
@@ -139,6 +141,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75C83590153E0072009021F4 /* xattr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75C8358E153E0068009021F4 /* xattr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,8 +300,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "XATTR/XATTR-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -329,8 +332,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "XATTR/XATTR-Prefix.pch";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;

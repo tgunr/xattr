@@ -5,10 +5,10 @@
 //  Created by Dave Carlton on 4/17/12.
 //  Copyright (c) 2012 Polymicro Systems. All rights reserved.
 //
-
+#include <sys/xattr.h>
 #import <Cocoa/Cocoa.h>
 
-enum XATTROptions {
+enum {
 	nofollow = 0x0001,     /* Don't follow symbolic links */
 	/* Options for setxattr calls */
 	create   = 0x0002,     /* set the value, fail if attr already exists */
@@ -23,13 +23,35 @@ enum XATTROptions {
 /* option for f/getxattr() and f/listxattr() to expose the HFS Compression extended attributes */
 	showcompressions = 0x0020
 
+} XATTROptions;
+
+@interface XATTR : NSObject {
+    NSURL *URL;
+    NSUInteger options;
+    NSError *resultError;
+	NSMutableDictionary *attributes;
 }
 
-@interface XATTR : NSObject
-@property(nonatomic, assign) NSURL URL;
-@property(nonatomic, assign) XATTROptions options;
+@property(nonatomic, strong) NSURL *URL;
+@property(nonatomic, assign) NSUInteger options;
+@property(nonatomic, strong) NSError *resultError;
+@property(nonatomic, strong) NSMutableDictionary *attributes;
 
-- (NSArray *)keys;
+
+- (id)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions;
+- (id)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions;
+
+- (BOOL)ifErrno: (NSString *) description;
+
+- (NSMutableDictionary *)getKeysValues;
+
+- (BOOL)deleteAttribute: (NSString *) aAttribute;
+
+- (BOOL)setAttribute: (NSString *) aAttribute value: (NSString *) xValue;
+
+- (BOOL)hasAttribute: (NSString *) string;
+
+- (NSData *)getAttribute: (NSString *) aAttribute;
 
 
 @end

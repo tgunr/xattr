@@ -6,116 +6,196 @@
 //  Copyright (c) 2012 Polymicro Systems. All rights reserved.
 //
 
+//#import <exception_defines.h>
 #import "xattr.h"
-#include "xattrfunctions.h"
 
 @implementation XATTR {
-	NSURL        *URL;
-	enum XATTROptions options;
 }
+
 @synthesize URL;
 @synthesize options;
+@synthesize resultError;
+@synthesize attributes;
 
-- (id)initWithURL: (NSURL *) aURL options: (XATTROptions) theOptions {
+
+- (id)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions {
 	self = [super init];
 	if (self) {
-		URL     = aURL;
-		options = theOptions;
-		NSMutableArray *keys   = [NSMutableArray arrayWithCapacity: 1];
-		NSMutableArray *values = [NSMutableArray arrayWithCapacity: 1];
+		URL        = aURL;
+		options    = theOptions;
+		attributes = [self getKeysValues];
 	}
 	return self;
 }
 
-- (id)initWithPath: (NSString *) thePath options: (XATTROptions) theOptions {
+- (id)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions {
 	self = [super init];
 	if (self) {
-		URL     = [[NSURL alloc] initFileURLWithPath: thePath];
-		options = theOptions;
+		URL        = [[NSURL alloc] initFileURLWithPath: thePath];
+		options    = theOptions;
+		attributes = [self getKeysValues];
 	}
 	return self;
 }
 
-- (NSArray *)keys error:(NSError **)anError {
-	size_t bufferSize = listxattr([URL path], NULL, 0, options);                        // find out the buffer size.
-	if (bufferSize < 0 || bufferSize == -1) {
-		if (anError != NULL) {
-			NSString     *description = nil;
-			NSDictionary *uDict       = nil;
-			int errCode;
+- (BOOL)ifErrno: (NSString *) description {
+	if (errno != 0) {
+		NSString *errorDescription = nil;
 
-			if (errno) {
-				description = NSLocalizedString(@"listxattr did not return a buffer size", @"");
-				errCode     = errno;
-			}
-			// Make underlying error.
-			NSError      *underlyingError = [[[NSError alloc] initWithDomain: NSPOSIXErrorDomain
-			                                                            code: errno userInfo: nil] autorelease];
-			// Make and return custom domain error.
-			NSArray      *objArray        = [NSArray arrayWithObjects: description, underlyingError, path, nil];
-			NSArray      *keyArray        = [NSArray arrayWithObjects: NSLocalizedDescriptionKey,
-			                                                           NSUnderlyingErrorKey, NSFilePathErrorKey, nil];
-			NSDictionary *eDict           = [NSDictionary dictionaryWithObjects: objArray
-			                                                            forKeys: keyArray];
+		errorDescription = [description stringByAppendingFormat: @" at path: %@", [URL path]];
 
-			*anError = [[[NSError alloc] initWithDomain: MyCustomErrorDomain
-			                                       code: errCode userInfo: eDict] autorelease];
-		}
-		return nil;
+		// Make and return custom domain error.
+		NSError      *underlyingError = [[NSError alloc] initWithDomain: NSPOSIXErrorDomain
+		                                                           code: errno userInfo: nil];
+		NSArray      *objArray        = [NSArray arrayWithObjects: errorDescription, underlyingError, [URL path], nil];
+		NSArray      *keyArray        = [NSArray arrayWithObjects: NSLocalizedDescriptionKey,
+		                                                           NSUnderlyingErrorKey, NSFilePathErrorKey, nil];
+		NSDictionary *eDict           = [NSDictionary dictionaryWithObjects: objArray
+		                                                            forKeys: keyArray];
+
+		resultError = [[NSError alloc] initWithDomain: NSPOSIXErrorDomain
+		                                         code: errno userInfo: eDict];
+		return YES;
 	}
+	return NO;
+}
+
+- (NSMutableDictionary *)getKeysValues {
+	NSMutableDictionary *xattributes = [NSMutableDictionary dictionaryWithCapacity: 0];
+
+	const char *path = [[URL path] fileSystemRepresentation];
+	ssize_t bufferSize = listxattr(path, NULL, 0, options);                        // find out the buffer size.
+	if (!bufferSize < 0 || bufferSize == -1) {
+		if ([self ifErrno: @"could not get size for keys"])
+			return xattributes;
+	}
+
+	if (bufferSize == 0)
+		return xattributes;
 
 	/*	LISTXATTR:
-The listxattr function fills the allocated text buffer with a list of attribute names,
-seperated by the null character ('\0').
-The function returns the number of attributes.
-*/
+	The listxattr function fills the allocated text buffer with a list of attribute names,
+	seperated by the null character ('\0').
+	*/
 
-	char *listBuffer = malloc(bufferSize);
-	if (listBuffer == NULL) {
-		if (anError != NULL) {
-			NSString     *description = nil;
-			NSDictionary *uDict       = nil;
-			int errCode;
-
-			if (errno == ENOMEM) {
-				description = NSLocalizedString(@"Cannot allocate memory", @"");
-				errCode     = ENOMEM;
-			}
-			// Make underlying error.
-			NSError      *underlyingError = [[[NSError alloc] initWithDomain: NSPOSIXErrorDomain
-			                                                            code: errno userInfo: nil] autorelease];
-			// Make and return custom domain error.
-			NSArray      *objArray        = [NSArray arrayWithObjects: description, underlyingError, path, nil];
-			NSArray      *keyArray        = [NSArray arrayWithObjects: NSLocalizedDescriptionKey,
-			                                                           NSUnderlyingErrorKey, NSFilePathErrorKey, nil];
-			NSDictionary *eDict           = [NSDictionary dictionaryWithObjects: objArray
-			                                                            forKeys: keyArray];
-
-			*anError = [[[NSError alloc] initWithDomain: MyCustomErrorDomain
-			                                       code: errCode userInfo: eDict] autorelease];
-		}
-		return nil;
-	}    // return NOMEM on malloc fail.
-
-	int listLength = listxattr(path, listBuffer, bufferSize, options);
-
-	int n         = 0;                                                            // a character scanner counter.
-	int nameStart = 0;                                                    // the index position of each name.
-	NSMutableArray *attributes
-	for (n = 0; n < listLength; n++) {
-
-		if (listBuffer[n] == '\0') {                                    // at a null termination in the buffer...
-
-			char *item = &listBuffer[nameStart];                            // return a pointer to the name...
-			nameStart = n + 1;                                                // and move to the next name.
-			NSString *keyName = [NSString stringWithCString: item encoding: NSUTF8Encoding];
-			[keys addObject: keyName];
-		}
+	char *buffer = malloc((size_t)bufferSize);
+	if (buffer == NULL) {
+		if ([self ifErrno: @"could not allocate memory for keys"])
+			return xattributes;
 	}
 
-	free(listBuffer);
-	return keys;
+	int listLength = listxattr(path, buffer, (size_t)bufferSize, options);
+	if (listLength == 0)
+		return xattributes;
+	if (listLength == -1)
+		if ([self ifErrno: @"error getting keys"])
+			return xattributes;
+
+	NSString *allKeys = [[NSString alloc] initWithBytes: buffer length: (NSUInteger)(bufferSize - 1) encoding: NSUTF8StringEncoding];
+	NSArray  *keys    = [allKeys componentsSeparatedByString: @"\0"];
+
+	NSMutableArray *values = [NSMutableArray arrayWithCapacity: 1];
+
+	free(buffer);
+	for (NSString *keyString in keys) {
+		const char *item = [keyString cStringUsingEncoding: NSUTF8StringEncoding];
+		bufferSize = getxattr(path, item, NULL, 0, 0, options);                    
+		if (bufferSize) {
+			buffer = malloc((size_t)(bufferSize + 1));                                
+            // getxattr returns without nullterm, make room...
+			if (buffer == NULL)
+				if ([self ifErrno: @"could not allocate memory for values"])
+					return xattributes;
+			buffer[bufferSize] = '\0';                                        // ...add nullterm.
+			int valueLength = getxattr(path, item, buffer, (size_t)bufferSize, 0, options);
+			if (valueLength) {
+				NSData *attrData = [NSData dataWithBytes: buffer length: (NSUInteger)valueLength];
+				if (attrData)
+					[values addObject: attrData];
+				else
+					[values addObject: @""];
+			}
+			else
+				[values addObject: @""];
+            free(buffer);
+		}
+		else
+			[values addObject: @""];
+	}
+	xattributes = [NSMutableDictionary dictionaryWithObjects: values forKeys: keys];
+	return xattributes;
 }
 
+/*	Delete Xattr:
+	This function deletes the named extended attribute of the file at path.
+	It will return an error if the attribute does not exist, or cannot be deleted.
+	The deletion of the attribute is double-checked by a getxattr call that expects an error upon success.
+ */
+- (BOOL)deleteAttribute: (NSString *) aAttribute {
+	if (aAttribute)
+		[attributes removeObjectForKey: aAttribute];
+	else {
+		errno = EINVAL;
+		[self ifErrno: @"tried to set nil key for attribute"];
+		return NO;
+	}
+
+	const char *aPath = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
+	const char *aKey  = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
+	if (removexattr(aPath, aKey, options) < 0)
+		if ([self ifErrno: [NSString stringWithFormat: @"failure to remove attribute %@", aAttribute]])
+			return NO;
+	BOOL result = (getxattr(aPath, aKey, NULL, 0, 0, options) < 0) ? NO : YES;            // check to see that it does not exist.
+	if (result == NO) {
+		errno = EPERM;
+		[self ifErrno: [NSString stringWithFormat: @"attribute %@ still exists after delete attempt", aAttribute]];
+	}
+	return result;
+}
+
+- (BOOL)setAttribute: (NSString *) aAttribute value: (NSString *) xValue {
+	if (aAttribute)
+		[attributes setValue: aAttribute forKey: xValue];
+	else {
+		errno = EINVAL;
+		[self ifErrno: @"tried to set nil key for attribute"];
+		return NO;
+	}
+
+	const char *aPath  = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
+	const char *aKey   = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
+	const char *aValue = [xValue cStringUsingEncoding: NSUTF8StringEncoding];
+	int result = setxattr(aPath, aKey, aValue, (size_t)[xValue length], 0, options);
+	if (result == -1) {
+		[self ifErrno: [NSString stringWithFormat: @"failure to set attribute %@", aAttribute]];
+		[self deleteAttribute: aAttribute];
+	}
+
+	return result == 0;
+}
+
+- (NSString *)hasKey: (NSString *) string {
+	id result;
+	@try {
+		result = [attributes valueForKey: string];
+	}
+	@catch (NSException *e) {
+		return nil;
+	}
+	if (result)
+		return string;
+	else
+		return nil;
+}
+
+- (BOOL)hasAttribute: (NSString *) string {
+	return [self hasKey: string] != nil;
+}
+
+- (NSData *)getAttribute: (NSString *) aAttribute {
+	if ([self hasKey: aAttribute])
+		return [attributes objectForKey: aAttribute];
+	return nil;
+}
 
 @end

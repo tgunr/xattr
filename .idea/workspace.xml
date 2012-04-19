@@ -43,12 +43,12 @@
       <file leaf-file-name="xattr.m" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xattr.m">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0">
+            <state line="18" column="0" selection-start="295" selection-end="295" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#135#152#0" expanded="true" />
-                <element signature="e#250#266#0" expanded="true" />
-                <element signature="e#2161#2351#0" expanded="true" />
+                <element signature="e#256#272#0" expanded="true" />
+                <element signature="e#2168#2358#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -238,12 +238,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/xattr.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0">
+        <state line="18" column="0" selection-start="295" selection-end="295" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#135#152#0" expanded="true" />
-            <element signature="e#250#266#0" expanded="true" />
-            <element signature="e#2161#2351#0" expanded="true" />
+            <element signature="e#256#272#0" expanded="true" />
+            <element signature="e#2168#2358#0" expanded="true" />
           </folding>
         </state>
       </provider>
