@@ -53,5 +53,6 @@ enum {
 
 - (NSData *)getAttribute: (NSString *) aAttribute;
 
+- (NSString *)hasKey: (NSString *) string;
 
 @end

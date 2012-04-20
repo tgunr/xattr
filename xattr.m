@@ -146,11 +146,11 @@
 		if ([self ifErrno: [NSString stringWithFormat: @"failure to remove attribute %@", aAttribute]])
 			return NO;
 	BOOL result = (getxattr(aPath, aKey, NULL, 0, 0, options) < 0) ? NO : YES;            // check to see that it does not exist.
-	if (result == NO) {
+	if (result == -1) {
 		errno = EPERM;
 		[self ifErrno: [NSString stringWithFormat: @"attribute %@ still exists after delete attempt", aAttribute]];
 	}
-	return result;
+	return result == 0;
 }
 
 - (BOOL)setAttribute: (NSString *) aAttribute value: (NSString *) xValue {
@@ -168,7 +168,6 @@
 	int result = setxattr(aPath, aKey, aValue, (size_t)[xValue length], 0, options);
 	if (result == -1) {
 		[self ifErrno: [NSString stringWithFormat: @"failure to set attribute %@", aAttribute]];
-		[self deleteAttribute: aAttribute];
 	}
 
 	return result == 0;
@@ -194,7 +193,7 @@
 
 - (NSData *)getAttribute: (NSString *) aAttribute {
 	if ([self hasKey: aAttribute])
-		return [attributes objectForKey: aAttribute];
+		return [attributes valueForKey: aAttribute];
 	return nil;
 }
 
