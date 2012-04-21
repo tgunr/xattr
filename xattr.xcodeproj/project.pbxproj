@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0F459DBB0D4647D10058DF34 /* xattrfunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 0F459DB90D4647D10058DF34 /* xattrfunctions.c */; };
 		75C8355C153DFAB8009021F4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C83546153DE0F3009021F4 /* Cocoa.framework */; };
-		75C83562153DFB07009021F4 /* XATTR.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75C83561153DFB07009021F4 /* XATTR.plist */; };
 		75C8358E153E0068009021F4 /* xattr.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C83553153DE147009021F4 /* xattr.m */; };
 		75C83590153E0072009021F4 /* xattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 75C83552153DE147009021F4 /* xattr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DD76FAC0486AB0100D96B5E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.c */; settings = {ATTRIBUTES = (); }; };
@@ -214,7 +213,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75C83562153DFB07009021F4 /* XATTR.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
