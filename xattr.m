@@ -38,6 +38,7 @@
 	return self;
 }
 
+// return YES if error was created in resultError
 - (BOOL)ifErrno: (NSString *) description {
 	if (errno != 0) {
 		NSString *errorDescription = nil;
@@ -128,71 +129,64 @@
 
 /*	Delete Xattr:
 	This function deletes the named extended attribute of the file at path.
-	It will return an error if the attribute does not exist, or cannot be deleted.
+	It will return NO if the attribute does not exist, or cannot be deleted.
 	The deletion of the attribute is double-checked by a getxattr call that expects an error upon success.
  */
 - (BOOL)deleteAttribute: (NSString *) aAttribute {
-	if (aAttribute)
+	if (aAttribute) {
+        const char *aPath = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
+        const char *aKey  = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
+        if (removexattr(aPath, aKey, options) != 0)
+            if ([self ifErrno: [NSString stringWithFormat: @"failed to remove attribute %@", aAttribute]])
+                return NO; // error was created
+        // double check to see that it does not exist.
+        ssize_t size = getxattr(aPath, aKey, NULL, 0, 0, options);                  
+        if (size != -1) {
+            errno = EPERM;
+            [self ifErrno: [NSString stringWithFormat: @"attribute %@ still exists after delete attempt", aAttribute]];
+            return NO; // error was created
+        }
 		[attributes removeObjectForKey: aAttribute];
-	else {
+        return YES; // attribute was deleted
+    } else {
 		errno = EINVAL;
-		[self ifErrno: @"tried to set nil key for attribute"];
+		[self ifErrno: @"tried to remove nil key for attribute"];
 		return NO;
 	}
-
-	const char *aPath = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
-	const char *aKey  = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
-	if (removexattr(aPath, aKey, options) < 0)
-		if ([self ifErrno: [NSString stringWithFormat: @"failure to remove attribute %@", aAttribute]])
-			return NO;
-	BOOL result = (getxattr(aPath, aKey, NULL, 0, 0, options) < 0) ? NO : YES;            // check to see that it does not exist.
-	if (result == -1) {
-		errno = EPERM;
-		[self ifErrno: [NSString stringWithFormat: @"attribute %@ still exists after delete attempt", aAttribute]];
-	}
-	return result == 0;
 }
 
 - (BOOL)setAttribute: (NSString *) aAttribute value: (NSString *) xValue {
-	if (aAttribute)
-		[attributes setValue: aAttribute forKey: xValue];
-	else {
+	if (aAttribute) {
+        const char *aPath  = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
+        const char *aKey   = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
+        const char *aValue = [xValue cStringUsingEncoding: NSUTF8StringEncoding];
+        int result = setxattr(aPath, aKey, aValue, (size_t)[xValue length], 0, options);
+        if (result == -1) {
+            [self ifErrno: [NSString stringWithFormat: @"failure to set attribute %@", aAttribute]];
+            return NO;
+        }
+		[attributes setValue: xValue  forKey:aAttribute ];
+        return YES;
+    } else {
 		errno = EINVAL;
 		[self ifErrno: @"tried to set nil key for attribute"];
 		return NO;
 	}
-
-	const char *aPath  = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
-	const char *aKey   = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
-	const char *aValue = [xValue cStringUsingEncoding: NSUTF8StringEncoding];
-	int result = setxattr(aPath, aKey, aValue, (size_t)[xValue length], 0, options);
-	if (result == -1) {
-		[self ifErrno: [NSString stringWithFormat: @"failure to set attribute %@", aAttribute]];
-	}
-
-	return result == 0;
 }
 
-- (NSString *)hasKey: (NSString *) string {
+- (BOOL)hasAttribute: (NSString *) string {
 	id result;
 	@try {
 		result = [attributes valueForKey: string];
 	}
 	@catch (NSException *e) {
-		return nil;
+		return NO;
 	}
-	if (result)
-		return string;
-	else
-		return nil;
-}
-
-- (BOOL)hasAttribute: (NSString *) string {
-	return [self hasKey: string] != nil;
+    return result == nil ? NO : YES;
 }
 
 - (NSData *)getAttribute: (NSString *) aAttribute {
-	if ([self hasKey: aAttribute])
+	if ([self hasAttribute: aAttribute])
 		return [attributes valueForKey: aAttribute];
 	return nil;
 }
