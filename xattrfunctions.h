@@ -3,7 +3,7 @@
  *  little_lister
  *
  *  Created by Matthew Lye on 11/01/08.
- *  Copyright 2008 __MyCompanyName__. All rights reserved.
+ *  Copyright 2008 PolyMicro Systems. All rights reserved.
  *
  *  Using the xattr library calls.
  */
