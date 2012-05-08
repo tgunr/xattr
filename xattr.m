@@ -65,7 +65,7 @@
 
 	const char *path = [[URL path] fileSystemRepresentation];
 	ssize_t bufferSize = listxattr(path, NULL, 0, options);                        // find out the buffer size.
-	if (!bufferSize < 0 || bufferSize == -1) {
+	if (bufferSize == -1) {
 		if ([self ifErrno: @"could not get size for keys"])
 			return xattributes;
 	}
@@ -78,13 +78,13 @@
 	seperated by the null character ('\0').
 	*/
 
-	char *buffer = malloc((size_t)bufferSize);
+	char *buffer = (char *)malloc((size_t)bufferSize);
 	if (buffer == NULL) {
 		if ([self ifErrno: @"could not allocate memory for keys"])
 			return xattributes;
 	}
 
-	int listLength = listxattr(path, buffer, (size_t)bufferSize, options);
+	ssize_t listLength = listxattr(path, buffer, (size_t)bufferSize, options);
 	if (listLength == 0)
 		return xattributes;
 	if (listLength == -1)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F459DBB0D4647D10058DF34 /* xattrfunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 0F459DB90D4647D10058DF34 /* xattrfunctions.c */; };
+		751186B41559A0A000D064F2 /* xattr.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C83553153DE147009021F4 /* xattr.m */; };
 		75C8355C153DFAB8009021F4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C83546153DE0F3009021F4 /* Cocoa.framework */; };
 		75C8358E153E0068009021F4 /* xattr.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C83553153DE147009021F4 /* xattr.m */; };
 		75C83590153E0072009021F4 /* xattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 75C83552153DE147009021F4 /* xattr.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,6 +34,7 @@
 		0F459DB90D4647D10058DF34 /* xattrfunctions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xattrfunctions.c; sourceTree = "<group>"; };
 		0F459DBA0D4647D10058DF34 /* xattrfunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xattrfunctions.h; sourceTree = "<group>"; };
 		0FB4FCB30D5214F2001A8CC7 /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
+		751186AF1559A08C00D064F2 /* libxattrlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libxattrlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		75C83546153DE0F3009021F4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		75C83549153DE0F3009021F4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		75C8354A153DE0F3009021F4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -46,6 +48,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		751186AC1559A08C00D064F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75C83557153DFAB8009021F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,6 +102,7 @@
 			children = (
 				8DD76FB20486AB0100D96B5E /* xattr */,
 				75C8355B153DFAB8009021F4 /* XATTR.framework */,
+				751186AF1559A08C00D064F2 /* libxattrlib.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,6 +146,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		751186AD1559A08C00D064F2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75C83558153DFAB8009021F4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -147,6 +164,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		751186AE1559A08C00D064F2 /* xattrlib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 751186B21559A08C00D064F2 /* Build configuration list for PBXNativeTarget "xattrlib" */;
+			buildPhases = (
+				751186AB1559A08C00D064F2 /* Sources */,
+				751186AC1559A08C00D064F2 /* Frameworks */,
+				751186AD1559A08C00D064F2 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = xattrlib;
+			productName = xattrlib;
+			productReference = 751186AF1559A08C00D064F2 /* libxattrlib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		75C8355A153DFAB8009021F4 /* XATTR */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75C8355E153DFAB8009021F4 /* Build configuration list for PBXNativeTarget "XATTR" */;
@@ -204,6 +238,7 @@
 			targets = (
 				8DD76FA90486AB0100D96B5E /* xattr */,
 				75C8355A153DFAB8009021F4 /* XATTR */,
+				751186AE1559A08C00D064F2 /* xattrlib */,
 			);
 		};
 /* End PBXProject section */
@@ -219,6 +254,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		751186AB1559A08C00D064F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				751186B41559A0A000D064F2 /* xattr.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75C83556153DFAB8009021F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -281,6 +324,53 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		751186B01559A08C00D064F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = ../build;
+			};
+			name = Debug;
+		};
+		751186B11559A08C00D064F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = ../build;
 			};
 			name = Release;
 		};
@@ -363,6 +453,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		751186B21559A08C00D064F2 /* Build configuration list for PBXNativeTarget "xattrlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				751186B01559A08C00D064F2 /* Debug */,
+				751186B11559A08C00D064F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		75C8355E153DFAB8009021F4 /* Build configuration list for PBXNativeTarget "XATTR" */ = {
 			isa = XCConfigurationList;
