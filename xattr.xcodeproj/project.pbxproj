@@ -188,6 +188,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Polymicro Systems";
 			};
 			buildConfigurationList = 1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "xattr" */;
 			compatibilityVersion = "Xcode 3.2";
