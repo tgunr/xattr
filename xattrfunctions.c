@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <sys/xattr.h>
 #include <sys/errno.h>
-#include <string.h>
 #include "xattrfunctions.h"
 
 
@@ -38,7 +37,7 @@ int displayXattrKeys(const char *path, const char options) {
 	ssize_t listxattr(const char *path, char *namebuff, size_t size, int options);
 	size_t bufferSize=listxattr(path, NULL, 0, options);						// find out the buffer size.
 	
-	if (bufferSize < 0 || bufferSize == -1 ) { 
+	if (bufferSize == 0 || bufferSize == -1 ) {
 		perror(NULL); 
 		return errno; 
 	}
@@ -96,7 +95,7 @@ int displayXattrValue(const char *path, const char *key, const char options) {
 	
 	size_t bufferSize=getxattr(path, key, NULL, 0, 0,options);					// check the buffer size.
 	//printf("buffer size:  %i\n", bufferSize);
-	if (bufferSize < 0 ) { 
+	if (bufferSize == 0 || bufferSize == -1) {
 		perror(NULL); 
 		return errno; 
 	}						// return NOMEM on malloc fail.

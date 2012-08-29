@@ -1,6 +1,4 @@
-#include <malloc/malloc.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include "xattrfunctions.h"
 
@@ -116,8 +114,8 @@ int main (int argc, const char * argv[]) {
 //	if (command == LISTER || n>1 ) usage();
 //	break;
 //	
-	const char *key;
-	const char *value;
+	const char *key = NULL;
+	const char *value = NULL;
 	int result=0;
 
 	switch (command) {
@@ -137,6 +135,8 @@ int main (int argc, const char * argv[]) {
 			argc -= 1;
 			argv += 1;
 			break;
+		default:
+	        break;
 	}
 
 	while ( argc ) { // remaining args are paths

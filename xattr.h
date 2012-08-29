@@ -8,7 +8,7 @@
 #include <sys/xattr.h>
 #import <Cocoa/Cocoa.h>
 
-enum XATTROptions {
+enum  {
 	nofollow = 0x0001,     /* Don't follow symbolic links */
 	/* Options for setxattr calls */
 	create   = 0x0002,     /* set the value, fail if attr already exists */
@@ -23,7 +23,7 @@ enum XATTROptions {
 /* option for f/getxattr() and f/listxattr() to expose the HFS Compression extended attributes */
 	showcompressions = 0x0020
 
-};
+} XATTROptions;
 
 @interface XATTR : NSObject {
     NSURL *URL;
