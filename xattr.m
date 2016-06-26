@@ -21,8 +21,8 @@
 - (id)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions {
 	self = [super init];
 	if (self) {
-		URL        = aURL;
-		options    = theOptions;
+		URL     = aURL;
+		options = theOptions;
 		attributes = [self getKeysValues];
 	}
 	return self;
@@ -31,8 +31,8 @@
 - (id)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions {
 	self = [super init];
 	if (self) {
-		URL        = [[NSURL alloc] initFileURLWithPath: thePath];
-		options    = theOptions;
+		URL     = [[NSURL alloc] initFileURLWithPath: thePath];
+		options = theOptions;
 		attributes = [self getKeysValues];
 	}
 	return self;
@@ -42,30 +42,76 @@
 - (BOOL)ifErrno: (NSString *) description {
 	if (errno != 0) {
 		NSString *errorDescription = nil;
-
 		errorDescription = [description stringByAppendingFormat: @" at path: %@", [URL path]];
-
-		// Make and return custom domain error.
+        
+        // Make and return custom domain error.
 		NSError      *underlyingError = [[NSError alloc] initWithDomain: NSPOSIXErrorDomain
 		                                                           code: errno userInfo: nil];
 		NSArray      *objArray        = [NSArray arrayWithObjects: errorDescription, underlyingError, [URL path], nil];
-		NSArray      *keyArray        = [NSArray arrayWithObjects: NSLocalizedDescriptionKey,
-		                                                           NSUnderlyingErrorKey, NSFilePathErrorKey, nil];
-		NSDictionary *eDict           = [NSDictionary dictionaryWithObjects: objArray
-		                                                            forKeys: keyArray];
-
+        NSArray      *keyArray        = [NSArray arrayWithObjects: NSLocalizedDescriptionKey,
+                                         NSUnderlyingErrorKey, NSFilePathErrorKey, nil];
+        NSDictionary *eDict           = [NSDictionary dictionaryWithObjects: objArray
+                                                                    forKeys: keyArray];
+        
 		resultError = [[NSError alloc] initWithDomain: NSPOSIXErrorDomain
 		                                         code: errno userInfo: eDict];
 		return YES;
-	}
+    }
 	return NO;
+}
+
+- (NSArray *)keys  {
+    const char *path = [[URL path] fileSystemRepresentation];
+
+	size_t bufferSize = listxattr(path, NULL, 0, (int)options);                        // find out the buffer size.
+	if (bufferSize == 0 || bufferSize == -1) {
+		if (errno != 0) {
+            if ([self ifErrno: @"listxattr did not return a buffer size"])
+                return nil;
+        }
+	}
+    
+	/*	LISTXATTR:
+     The listxattr function fills the allocated text buffer with a list of attribute names,
+     seperated by the null character ('\0').
+     The function returns the number of attributes.
+     */
+    
+	char *listBuffer = malloc(bufferSize);
+	if (listBuffer == NULL) {
+		if (errno != 0) {
+			if (errno == ENOMEM) {
+                if ([self ifErrno: @"Cannot allocate memory"])
+                    return nil;
+            }
+        }
+    }
+    
+	size_t listLength = listxattr(path, listBuffer, bufferSize, (int)options);
+    
+    int n         = 0;                                                     // a character scanner counter.
+	int nameStart = 0;                                                    // the index position of each name.
+    NSMutableArray *attributesArray = [NSMutableArray arrayWithCapacity: 0];
+	for (n = 0; n < listLength; n++) {
+        
+		if (listBuffer[n] == '\0') {                                    // at a null termination in the buffer...
+            
+			char *item = &listBuffer[nameStart];                            // return a pointer to the name...
+			nameStart = n + 1;                                                // and move to the next name.
+			NSString *keyName = [NSString stringWithCString: item encoding: NSUTF8StringEncoding];
+			[attributesArray addObject: keyName];
+		}
+	}
+    
+	free(listBuffer);
+	return attributesArray;
 }
 
 - (NSMutableDictionary *)getKeysValues {
 	NSMutableDictionary *xattributes = [NSMutableDictionary dictionaryWithCapacity: 0];
 
 	const char *path = [[URL path] fileSystemRepresentation];
-	ssize_t bufferSize = listxattr(path, NULL, 0, options);                        // find out the buffer size.
+	ssize_t bufferSize = listxattr(path, NULL, 0, (int)options);                        // find out the buffer size.
 	if (bufferSize == -1) {
 		if ([self ifErrno: @"could not get size for keys"])
 			return xattributes;
@@ -75,17 +121,17 @@
 		return xattributes;
 
 	/*	LISTXATTR:
-	The listxattr function fills the allocated text buffer with a list of attribute names,
-	seperated by the null character ('\0').
-	*/
+The listxattr function fills the allocated text buffer with a list of attribute names,
+seperated by the null character ('\0').
+*/
 
 	char *buffer = (char *)malloc((size_t)bufferSize);
 	if (buffer == NULL) {
 		if ([self ifErrno: @"could not allocate memory for keys"])
 			return xattributes;
-	}
+			}
 
-	ssize_t listLength = listxattr(path, buffer, (size_t)bufferSize, options);
+	ssize_t listLength = listxattr(path, buffer, (size_t)bufferSize, (int)options);
 	if (listLength == 0)
 		return xattributes;
 	if (listLength == -1)
@@ -100,7 +146,7 @@
 	free(buffer);
 	for (NSString *keyString in keys) {
 		const char *item = [keyString cStringUsingEncoding: NSUTF8StringEncoding];
-		bufferSize = getxattr(path, item, NULL, 0, 0, options);                    
+		bufferSize = getxattr(path, item, NULL, 0, 0, (int)options);
 		if (bufferSize) {
 			buffer = malloc((size_t)(bufferSize + 1));                                
             // getxattr returns without nullterm, make room...
@@ -108,7 +154,7 @@
 				if ([self ifErrno: @"could not allocate memory for values"])
 					return xattributes;
 			buffer[bufferSize] = '\0';                                        // ...add nullterm.
-			int valueLength = getxattr(path, item, buffer, (size_t)bufferSize, 0, options);
+			ssize_t valueLength = getxattr(path, item, buffer, (size_t)bufferSize, 0, (int)options);
 			if (valueLength) {
 				NSData *attrData = [NSData dataWithBytes: buffer length: (NSUInteger)valueLength];
 				if (attrData)
@@ -136,16 +182,16 @@
 	if (aAttribute) {
         const char *aPath = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
         const char *aKey  = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
-        if (removexattr(aPath, aKey, options) != 0)
+        if (removexattr(aPath, aKey, (int)options) != 0)
             if ([self ifErrno: [NSString stringWithFormat: @"failed to remove attribute %@", aAttribute]])
                 return NO; // error was created
         // double check to see that it does not exist.
-        ssize_t size = getxattr(aPath, aKey, NULL, 0, 0, options);                  
+        ssize_t size = getxattr(aPath, aKey, NULL, 0, 0, (int)options);
         if (size != -1) {
             errno = EPERM;
             [self ifErrno: [NSString stringWithFormat: @"attribute %@ still exists after delete attempt", aAttribute]];
             return NO; // error was created
-        }
+		}
 		[attributes removeObjectForKey: aAttribute];
         return YES; // attribute was deleted
     } else {
@@ -160,11 +206,11 @@
         const char *aPath  = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
         const char *aKey   = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
         const char *aValue = [xValue cStringUsingEncoding: NSUTF8StringEncoding];
-        int result = setxattr(aPath, aKey, aValue, (size_t)[xValue length], 0, options);
+        ssize_t result = setxattr(aPath, aKey, aValue, (size_t)[xValue length], 0, (int)options);
         if (result == -1) {
             [self ifErrno: [NSString stringWithFormat: @"failure to set attribute %@", aAttribute]];
             return NO;
-        }
+}
 		[attributes setValue: xValue  forKey:aAttribute ];
         return YES;
     } else {
