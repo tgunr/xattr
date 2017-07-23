@@ -38,12 +38,12 @@ enum XATTROptions {
 @property(nonatomic, strong) NSMutableDictionary *attributes;
 
 
-- (id)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions;
-- (id)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions;
+- (instancetype)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)ifErrno: (NSString *) description;
 
-- (NSMutableDictionary *)getKeysValues;
+@property (NS_NONATOMIC_IOSONLY, getter=getKeysValues, readonly, copy) NSMutableDictionary *keysValues;
 
 - (BOOL)deleteAttribute: (NSString *) aAttribute;
 

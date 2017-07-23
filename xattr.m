@@ -18,7 +18,7 @@
 @synthesize attributes;
 
 
-- (id)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions {
+- (instancetype)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions {
 	self = [super init];
 	if (self) {
 		URL     = aURL;
@@ -28,7 +28,7 @@
 	return self;
 }
 
-- (id)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions {
+- (instancetype)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions {
 	self = [super init];
 	if (self) {
 		URL     = [[NSURL alloc] initFileURLWithPath: thePath];
@@ -42,14 +42,14 @@
 - (BOOL)ifErrno: (NSString *) description {
 	if (errno != 0) {
 		NSString *errorDescription = nil;
-		errorDescription = [description stringByAppendingFormat: @" at path: %@", [URL path]];
+		errorDescription = [description stringByAppendingFormat: @" at path: %@", URL.path];
         
         // Make and return custom domain error.
 		NSError      *underlyingError = [[NSError alloc] initWithDomain: NSPOSIXErrorDomain
 		                                                           code: errno userInfo: nil];
-		NSArray      *objArray        = [NSArray arrayWithObjects: errorDescription, underlyingError, [URL path], nil];
-        NSArray      *keyArray        = [NSArray arrayWithObjects: NSLocalizedDescriptionKey,
-                                         NSUnderlyingErrorKey, NSFilePathErrorKey, nil];
+		NSArray      *objArray        = @[errorDescription, underlyingError, URL.path];
+        NSArray      *keyArray        = @[NSLocalizedDescriptionKey,
+                                         NSUnderlyingErrorKey, NSFilePathErrorKey];
         NSDictionary *eDict           = [NSDictionary dictionaryWithObjects: objArray
                                                                     forKeys: keyArray];
         
@@ -61,7 +61,7 @@
 }
 
 - (NSArray *)keys  {
-    const char *path = [[URL path] fileSystemRepresentation];
+    const char *path = URL.path.fileSystemRepresentation;
 
 	size_t bufferSize = listxattr(path, NULL, 0, (int)options);                        // find out the buffer size.
 	if (bufferSize == 0 || bufferSize == -1) {
@@ -98,7 +98,7 @@
             
 			char *item = &listBuffer[nameStart];                            // return a pointer to the name...
 			nameStart = n + 1;                                                // and move to the next name.
-			NSString *keyName = [NSString stringWithCString: item encoding: NSUTF8StringEncoding];
+			NSString *keyName = @(item);
 			[attributesArray addObject: keyName];
 		}
 	}
@@ -110,7 +110,7 @@
 - (NSMutableDictionary *)getKeysValues {
 	NSMutableDictionary *xattributes = [NSMutableDictionary dictionaryWithCapacity: 0];
 
-	const char *path = [[URL path] fileSystemRepresentation];
+	const char *path = URL.path.fileSystemRepresentation;
 	ssize_t bufferSize = listxattr(path, NULL, 0, (int)options);                        // find out the buffer size.
 	if (bufferSize == -1) {
 		if ([self ifErrno: @"could not get size for keys"])
@@ -180,7 +180,7 @@ seperated by the null character ('\0').
  */
 - (BOOL)deleteAttribute: (NSString *) aAttribute {
 	if (aAttribute) {
-        const char *aPath = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
+        const char *aPath = [URL.path cStringUsingEncoding: NSUTF8StringEncoding];
         const char *aKey  = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
         if (removexattr(aPath, aKey, (int)options) != 0)
             if ([self ifErrno: [NSString stringWithFormat: @"failed to remove attribute %@", aAttribute]])
@@ -203,10 +203,10 @@ seperated by the null character ('\0').
 
 - (BOOL)setAttribute: (NSString *) aAttribute value: (NSString *) xValue {
 	if (aAttribute) {
-        const char *aPath  = [[URL path] cStringUsingEncoding: NSUTF8StringEncoding];
+        const char *aPath  = [URL.path cStringUsingEncoding: NSUTF8StringEncoding];
         const char *aKey   = [aAttribute cStringUsingEncoding: NSUTF8StringEncoding];
         const char *aValue = [xValue cStringUsingEncoding: NSUTF8StringEncoding];
-        ssize_t result = setxattr(aPath, aKey, aValue, (size_t)[xValue length], 0, (int)options);
+        ssize_t result = setxattr(aPath, aKey, aValue, (size_t)xValue.length, 0, (int)options);
         if (result == -1) {
             [self ifErrno: [NSString stringWithFormat: @"failure to set attribute %@", aAttribute]];
             return NO;
