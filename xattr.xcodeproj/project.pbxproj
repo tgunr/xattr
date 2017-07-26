@@ -6,15 +6,55 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		7589631C1F27B6EB005C9ED8 /* All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 7589631F1F27B6EB005C9ED8 /* Build configuration list for PBXAggregateTarget "All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				758963211F27B6FC005C9ED8 /* PBXTargetDependency */,
+				758963231F27B6FC005C9ED8 /* PBXTargetDependency */,
+				759BC1971F27CC26008DF41B /* PBXTargetDependency */,
+			);
+			name = All;
+			productName = All;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		0F459DBB0D4647D10058DF34 /* xattrfunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 0F459DB90D4647D10058DF34 /* xattrfunctions.c */; };
-		751186B41559A0A000D064F2 /* xattr.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C83553153DE147009021F4 /* xattr.m */; };
+		759BC1981F27CC7B008DF41B /* xattr.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C83553153DE147009021F4 /* xattr.m */; };
 		75C8355C153DFAB8009021F4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C83546153DE0F3009021F4 /* Cocoa.framework */; };
 		75C8358E153E0068009021F4 /* xattr.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C83553153DE147009021F4 /* xattr.m */; };
 		75C83590153E0072009021F4 /* xattr.h in Headers */ = {isa = PBXBuildFile; fileRef = 75C83552153DE147009021F4 /* xattr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DD76FAC0486AB0100D96B5E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.c */; settings = {ATTRIBUTES = (); }; };
 		8DD76FB00486AB0100D96B5E /* xattr.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6A0FF2C0290799A04C91782 /* xattr.1 */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		758963201F27B6FC005C9ED8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DD76FA90486AB0100D96B5E;
+			remoteInfo = xattr;
+		};
+		758963221F27B6FC005C9ED8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75C8355A153DFAB8009021F4;
+			remoteInfo = XATTR;
+		};
+		759BC1961F27CC26008DF41B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 759BC1911F27CC0E008DF41B;
+			remoteInfo = xattrlib;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8DD76FAF0486AB0100D96B5E /* CopyFiles */ = {
@@ -34,7 +74,7 @@
 		0F459DB90D4647D10058DF34 /* xattrfunctions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xattrfunctions.c; sourceTree = "<group>"; };
 		0F459DBA0D4647D10058DF34 /* xattrfunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xattrfunctions.h; sourceTree = "<group>"; };
 		0FB4FCB30D5214F2001A8CC7 /* COPYING.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING.txt; sourceTree = "<group>"; };
-		751186AF1559A08C00D064F2 /* libxattrlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libxattrlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		759BC1921F27CC0E008DF41B /* libxattrlib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libxattrlib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		75C83546153DE0F3009021F4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		75C83549153DE0F3009021F4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		75C8354A153DE0F3009021F4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -48,7 +88,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		751186AC1559A08C00D064F2 /* Frameworks */ = {
+		759BC18F1F27CC0E008DF41B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -102,7 +142,7 @@
 			children = (
 				8DD76FB20486AB0100D96B5E /* xattr */,
 				75C8355B153DFAB8009021F4 /* XATTR.framework */,
-				751186AF1559A08C00D064F2 /* libxattrlib.a */,
+				759BC1921F27CC0E008DF41B /* libxattrlib.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,7 +186,7 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		751186AD1559A08C00D064F2 /* Headers */ = {
+		759BC1901F27CC0E008DF41B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -164,13 +204,13 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		751186AE1559A08C00D064F2 /* xattrlib */ = {
+		759BC1911F27CC0E008DF41B /* xattrlib */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 751186B21559A08C00D064F2 /* Build configuration list for PBXNativeTarget "xattrlib" */;
+			buildConfigurationList = 759BC1931F27CC0E008DF41B /* Build configuration list for PBXNativeTarget "xattrlib" */;
 			buildPhases = (
-				751186AB1559A08C00D064F2 /* Sources */,
-				751186AC1559A08C00D064F2 /* Frameworks */,
-				751186AD1559A08C00D064F2 /* Headers */,
+				759BC18E1F27CC0E008DF41B /* Sources */,
+				759BC18F1F27CC0E008DF41B /* Frameworks */,
+				759BC1901F27CC0E008DF41B /* Headers */,
 			);
 			buildRules = (
 			);
@@ -178,8 +218,8 @@
 			);
 			name = xattrlib;
 			productName = xattrlib;
-			productReference = 751186AF1559A08C00D064F2 /* libxattrlib.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = 759BC1921F27CC0E008DF41B /* libxattrlib.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 		75C8355A153DFAB8009021F4 /* XATTR */ = {
 			isa = PBXNativeTarget;
@@ -225,6 +265,12 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 				TargetAttributes = {
+					7589631C1F27B6EB005C9ED8 = {
+						CreatedOnToolsVersion = 9.0;
+					};
+					759BC1911F27CC0E008DF41B = {
+						CreatedOnToolsVersion = 9.0;
+					};
 					75C8355A153DFAB8009021F4 = {
 						DevelopmentTeam = 98LGF33H43;
 					};
@@ -243,7 +289,8 @@
 			targets = (
 				8DD76FA90486AB0100D96B5E /* xattr */,
 				75C8355A153DFAB8009021F4 /* XATTR */,
-				751186AE1559A08C00D064F2 /* xattrlib */,
+				7589631C1F27B6EB005C9ED8 /* All */,
+				759BC1911F27CC0E008DF41B /* xattrlib */,
 			);
 		};
 /* End PBXProject section */
@@ -259,11 +306,11 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		751186AB1559A08C00D064F2 /* Sources */ = {
+		759BC18E1F27CC0E008DF41B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				751186B41559A0A000D064F2 /* xattr.m in Sources */,
+				759BC1981F27CC7B008DF41B /* xattr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,25 +333,36 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		758963211F27B6FC005C9ED8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DD76FA90486AB0100D96B5E /* xattr */;
+			targetProxy = 758963201F27B6FC005C9ED8 /* PBXContainerItemProxy */;
+		};
+		758963231F27B6FC005C9ED8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75C8355A153DFAB8009021F4 /* XATTR */;
+			targetProxy = 758963221F27B6FC005C9ED8 /* PBXContainerItemProxy */;
+		};
+		759BC1971F27CC26008DF41B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 759BC1911F27CC0E008DF41B /* xattrlib */;
+			targetProxy = 759BC1961F27CC26008DF41B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		1DEB928608733DD80010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = /usr/local/bin;
 				PRODUCT_NAME = xattr;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		1DEB928708733DD80010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /usr/local/bin;
 				PRODUCT_NAME = xattr;
 			};
@@ -313,71 +371,139 @@
 		1DEB928A08733DD80010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
 		1DEB928B08733DD80010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				DEPLOYMENT_LOCATION = NO;
-				DEPLOYMENT_POSTPROCESSING = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 			};
 			name = Release;
 		};
-		751186B01559A08C00D064F2 /* Debug */ = {
+		7589631D1F27B6EB005C9ED8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7589631E1F27B6EB005C9ED8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		759BC1941F27CC0E008DF41B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SYMROOT = ../build;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
-		751186B11559A08C00D064F2 /* Release */ = {
+		759BC1951F27CC0E008DF41B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SYMROOT = ../build;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -385,34 +511,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
-				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = XATTR.plist;
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.polymicrosystems.fw.xattr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SYMROOT = ../build;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -421,27 +527,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = XATTR.plist;
 				INSTALL_PATH = "@rpath";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_BUNDLE_IDENTIFIER = com.polymicrosystems.fw.xattr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SYMROOT = ../build;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -467,11 +560,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		751186B21559A08C00D064F2 /* Build configuration list for PBXNativeTarget "xattrlib" */ = {
+		7589631F1F27B6EB005C9ED8 /* Build configuration list for PBXAggregateTarget "All" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				751186B01559A08C00D064F2 /* Debug */,
-				751186B11559A08C00D064F2 /* Release */,
+				7589631D1F27B6EB005C9ED8 /* Debug */,
+				7589631E1F27B6EB005C9ED8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		759BC1931F27CC0E008DF41B /* Build configuration list for PBXNativeTarget "xattrlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				759BC1941F27CC0E008DF41B /* Debug */,
+				759BC1951F27CC0E008DF41B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
