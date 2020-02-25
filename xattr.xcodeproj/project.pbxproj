@@ -118,7 +118,7 @@
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6A0FF2B0290797F04C91782 /* Documentation */,
-				75C8354C153DE0F3009021F4 /* XATTR */,
+				75C8354C153DE0F3009021F4 /* xattr */,
 				75C83545153DE0F3009021F4 /* Frameworks */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
 			);
@@ -166,12 +166,12 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		75C8354C153DE0F3009021F4 /* XATTR */ = {
+		75C8354C153DE0F3009021F4 /* xattr */ = {
 			isa = PBXGroup;
 			children = (
 				75C83561153DFB07009021F4 /* XATTR.plist */,
 			);
-			path = XATTR;
+			path = xattr;
 			sourceTree = "<group>";
 		};
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
