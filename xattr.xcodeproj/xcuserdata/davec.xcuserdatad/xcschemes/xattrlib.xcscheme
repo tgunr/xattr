@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "759BC1911F27CC0E008DF41B"
-               BuildableName = "libxattrlib.dylib"
+               BlueprintIdentifier = "751186AE1559A08C00D064F2"
+               BuildableName = "libxattrlib.a"
                BlueprintName = "xattrlib"
                ReferencedContainer = "container:xattr.xcodeproj">
             </BuildableReference>
@@ -43,8 +43,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "759BC1911F27CC0E008DF41B"
-            BuildableName = "libxattrlib.dylib"
+            BlueprintIdentifier = "751186AE1559A08C00D064F2"
+            BuildableName = "libxattrlib.a"
             BlueprintName = "xattrlib"
             ReferencedContainer = "container:xattr.xcodeproj">
          </BuildableReference>
@@ -59,8 +59,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "759BC1911F27CC0E008DF41B"
-            BuildableName = "libxattrlib.dylib"
+            BlueprintIdentifier = "751186AE1559A08C00D064F2"
+            BuildableName = "libxattrlib.a"
             BlueprintName = "xattrlib"
             ReferencedContainer = "container:xattr.xcodeproj">
          </BuildableReference>
