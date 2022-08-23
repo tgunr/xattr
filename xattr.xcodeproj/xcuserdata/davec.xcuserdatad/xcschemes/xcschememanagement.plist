@@ -4,12 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>All.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
-		</dict>
-		<key>XATTR.xcscheme</key>
+		<key>XATTR All.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
@@ -24,7 +19,12 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>xattrlib.xcscheme</key>
+		<key>xattr.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>xattrlib.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>5</integer>
@@ -37,12 +37,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>75C8355A153DFAB8009021F4</key>
+		<key>7589631C1F27B6EB005C9ED8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8DD76FA90486AB0100D96B5E</key>
+		<key>75C8355A153DFAB8009021F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
