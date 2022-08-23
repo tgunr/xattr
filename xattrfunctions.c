@@ -55,7 +55,7 @@ int displayXattrKeys(const char *path, const char options) {
 		return errno; 
 	}	// return NOMEM on malloc fail.
 		
-	int listLength=listxattr(path, listBuffer, bufferSize, options);	
+    ssize_t listLength=listxattr(path, listBuffer, bufferSize, options);	
 
 	int n=0;															// a character scanner counter.
 	int nameStart=0;													// the index position of each name.
@@ -109,7 +109,7 @@ int displayXattrValue(const char *path, const char *key, const char options) {
 	
 	valueBuffer[bufferSize]='\0';										// ...add nullterm.
 	
-	int valueLength=getxattr(path, key, valueBuffer, bufferSize, 0,options);
+    size_t valueLength=getxattr(path, key, valueBuffer, bufferSize, 0,options);
 	if (valueLength < 0) { 
 		perror(NULL); 
 		return errno; 
