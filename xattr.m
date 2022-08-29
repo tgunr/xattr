@@ -30,7 +30,7 @@ _Pragma("clang diagnostic pop")
 
 PSPDF_NOT_DESIGNATED_INITIALIZER_CUSTOM(init)
 
-- (instancetype)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions {
+- (instancetype)initWithURL: (NSURL *) aURL options: (enum XATTROptions) theOptions {
 	self = [super init];
 	if (self) {
 		URL     = aURL;
@@ -40,7 +40,7 @@ PSPDF_NOT_DESIGNATED_INITIALIZER_CUSTOM(init)
 	return self;
 }
 
-- (instancetype)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions {
+- (instancetype)initWithPath: (NSString *) thePath options: (enum XATTROptions) theOptions {
 	self = [super init];
 	if (self) {
 		URL     = [[NSURL alloc] initFileURLWithPath: thePath];

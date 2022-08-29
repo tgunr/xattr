@@ -27,19 +27,19 @@ enum XATTROptions {
 
 @interface XATTR : NSObject {
     NSURL *URL;
-    NSUInteger options;
+    enum XATTROptions options;
     NSError *resultError;
 	NSMutableDictionary *attributes;
 }
 
 @property(nonatomic, strong) NSURL *URL;
-@property(nonatomic, assign) NSUInteger options;
+@property(nonatomic, assign) enum XATTROptions options;
 @property(nonatomic, strong) NSError *resultError;
 @property(nonatomic, strong) NSMutableDictionary *attributes;
 
 
-- (instancetype)initWithURL: (NSURL *) aURL options: (NSUInteger) theOptions NS_DESIGNATED_INITIALIZER;
-- (instancetype)initWithPath: (NSString *) thePath options: (NSUInteger) theOptions NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithURL: (NSURL *) aURL options: (enum XATTROptions) theOptions NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithPath: (NSString *) thePath options: (enum XATTROptions) theOptions NS_DESIGNATED_INITIALIZER;
 
 - (BOOL)ifErrno: (NSString *) description;
 
