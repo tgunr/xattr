@@ -7,14 +7,9 @@
 		<key>XATTR All.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>8</integer>
 		</dict>
 		<key>XATTR.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-		<key>xattr.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>7</integer>
@@ -27,25 +22,7 @@
 		<key>xattrlib.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
-		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>751186AE1559A08C00D064F2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7589631C1F27B6EB005C9ED8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>75C8355A153DFAB8009021F4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
+			<integer>9</integer>
 		</dict>
 	</dict>
 </dict>

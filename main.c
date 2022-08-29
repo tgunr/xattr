@@ -24,6 +24,9 @@
  (D)	Terminate with a result of either 0 (PASS) or -1 (FAIL).
  
  */
+void version(void);
+void usage(void);
+
 void version() {
 	printf("xattr version %s, released under the MIT liscense.\n", VERSION_NUMBER);
 }
