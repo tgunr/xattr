@@ -171,7 +171,7 @@
 			children = (
 				75C83561153DFB07009021F4 /* XATTR.plist */,
 			);
-			path = xattr;
+			name = xattr;
 			sourceTree = "<group>";
 		};
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {
