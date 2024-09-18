@@ -27,10 +27,10 @@
 void version(void);
 void usage(void);
 
-void version() {
+void version(void) {
 	printf("xattr version %s, released under the MIT liscense.\n", VERSION_NUMBER);
 }
-void usage()	{
+void usage(void)	{
 	
 	printf("xattr [-p|-w|-d] [-s] [-l] [-R] [-C] [-v] [-h] file [file ...]\n");
 	printf("Examples:\n");
